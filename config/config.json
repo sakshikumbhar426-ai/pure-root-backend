@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Sakshi04",
+    "database": "eco_marketplace",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "Sakshi04",
+    "database": "eco_marketplace_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "Sakshi04",
+    "database": "eco_marketplace",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

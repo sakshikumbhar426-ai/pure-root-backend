@@ -1,0 +1,14 @@
+# Dependency directories (Bahut heavy hoti hain, inko GitHub pe nahi dalte)
+node_modules/
+
+# Environment variables (Isme aapke DB passwords hote hain - SENSITIVE!)
+.env
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: IDE files
+.vscode/
+.idea/

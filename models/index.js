@@ -19,9 +19,28 @@ const config = configData[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
+
+/**
+ * CONNECTION LOGIC
+ * Render par DATABASE_URL priority hogi, local par config.json
+ */
+if (process.env.DATABASE_URL) {
+  // Production (Render + Supabase) setup
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // Supabase connection ke liye zaroori hai
+      }
+    },
+    logging: false
+  });
+} else if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
+  // Local Development setup
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
@@ -39,7 +58,6 @@ for (const file of files) {
   const fileUrl = pathToFileURL(filePath).href; 
 
   const modelModule = await import(fileUrl);
-  // modelModule.default refers to 'export default' in your model files
   const model = modelModule.default(sequelize, DataTypes);
   db[model.name] = model;
 }
@@ -54,6 +72,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// FIX: Do not use named exports via destructuring here.
-// In your Controllers, import the whole 'db' object and then destructure.
 export default db;

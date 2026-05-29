@@ -68,7 +68,7 @@ export const createProduct = async (req, res) => {
         const product = await Product.create({
             product_name: name,
             price: parseFloat(price),
-            quantity: parseInt(quantity) || 0, // Fixed: Ensuring Integer
+            quantity: parseInt(quantity) || 0, 
             material_type: category, 
             packaging_type: packaging || "Eco-Friendly",
             description: description || "",
